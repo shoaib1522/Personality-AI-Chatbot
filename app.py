@@ -23,9 +23,11 @@ def get_groq_client():
 
     try:
         from groq import Groq
-        return Groq(api_key=api_key)
+        # Initialize without proxies parameter to avoid compatibility issues
+        client = Groq(api_key=api_key)
+        return client
     except Exception as e:
-        st.warning(f"⚠️ Could not initialize Groq: {str(e)}")
+        # Log error but don't crash - let app run in demo mode
         return None
 
 # Initialize session state
